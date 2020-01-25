@@ -67,7 +67,7 @@ POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%k%F{white}%f "
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_CUSTOM_INTERNET_SIGNAL="zsh_internet_signal"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_internet_signal os_icon  dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv custom_internet_signal os_icon  dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm rvm background_jobs ram battery time)
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
@@ -110,5 +110,30 @@ alias zshapply="source ~/.zshrc"
 alias ls="ls --color=always"
 alias ..='cd ..'
 alias c='clear'
+alias vi='nvim'
+alias vim='nvim'
 alias l.='ls -d .* --color=auto'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+

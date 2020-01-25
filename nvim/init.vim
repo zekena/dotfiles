@@ -1,10 +1,10 @@
 " Douglas Black
-" Colors {{{
+" Colors
 syntax enable           " enable syntax processing
 set background=dark
-colorscheme badwolf
+colorscheme codedark
 set encoding=UTF-8
-" }}}
+"
 " Misc {{{
 set backspace=indent,eol,start
 set path+=**
@@ -60,60 +60,38 @@ nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>l :call <SID>ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
-nnoremap <leader>af :Autoformat<CR>
-nnoremap <leader>st :SyntasticToggleMode<CR>
-nnoremap <leader>sc :SyntasticCheck<CR>
-map <C-n> :NERDTreeToggle<CR>
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
+nnoremap <leader>af :Neoformat<CR>
+tnoremap <Esc> <C-\><C-n>
+map <Leader>a :NERDTreeToggle<CR>
 map <Leader>n <esc>:tabprevious<CR>
+nnoremap <leader>vt :vsplit term://.//27361:/usr/bin/zsh<CR>
+inoremap <a-t> <esc>:vsplit term://.//27361:/usr/bin/zsh<CR>
+tnoremap <a-h> <c-\><c-n><c-w>h
+tnoremap <a-j> <c-\><c-n><c-w>j
+tnoremap <a-k> <c-\><c-n><c-w>k
+tnoremap <a-l> <c-\><c-n><c-w>l
+inoremap <a-h> <c-\><c-n><c-w>h
+inoremap <a-j> <c-\><c-n><c-w>j
+inoremap <a-k> <c-\><c-n><c-w>k
+inoremap <a-l> <c-\><c-n><c-w>l
+nnoremap <a-h> <c-w>h
+nnoremap <a-j> <c-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 map <Leader>m <esc>:tabnext<CR>
+map <Leader>tn <esc>:tabnew<CR>
+map <Leader>tc <esc>:tabclose<CR>
+map <Leader>to <esc>:tabonly<CR>
 map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
 map ,t :tabe <C-R>=expand("%:p:h") . "/" <CR>
 map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
 map ,v :vs <C-R>=expand("%:p:h") . "/" <CR>
 " }}}
-" YCM {{{
-" let g:ycm_python_binary_path = 'python3'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_of_chars_for_completion = 1
-"}}}
-" CtrlP {{{
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
-" }}}
-" python-mode {{{
-let g:pymode_syntax_all = 1
-
-let g:formatter_yapf_style = 'pep8'
-" }}}
-" Syntastic {{{
-let g:syntastic_python_checkers = ['pycodestyle']
-let g:syntastic_vim_checkers = ['vint']
-let g:syntastic_ignore_files = ['.java$']
-" let g:syntastic_python_python_exec = 'python3'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-function! SyntasticCheckHook(errors)
-    if !empty(a:errors)
-        let g:syntastic_loc_list_height = min([len(a:errors), 10])
-    endif
-endfunction
-" }}}
 " AutoGroups {{{
 augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
+    " autocmd VimEnter * colorscheme codedark
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
@@ -127,47 +105,108 @@ augroup configgroup
     autocmd BufEnter *.avsc setlocal ft=json
 augroup END
 " }}}
+" {{{
+if executable('fzf')
+    nnoremap <C-p> :FZF<cr>
+endif
+" }}}
 " Testing {{{
-let test#strategy = 'neovim'
+let test#trategy = 'neovim'
 let test#python#runner = 'nose'
 " }}}
 " Vim Plug {{{
-call plug#begin('~/.vim/plugged')
+call plug#begin()
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'SirVer/ultisnips'
+Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
-Plug 'derekwyatt/vim-scala'
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'vim-airline/vim-airline'
-Plug 'Chiel92/vim-autoformat'
+Plug 'pearofducks/ansible-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-repeat'
 Plug 'ryanoasis/vim-devicons'
-Plug 'elixir-editors/vim-elixir'
-Plug 'klen/python-mode'
-Plug 'fatih/vim-go'
-Plug 'Valloric/YouCompleteMe'
+Plug 'davidhalter/jedi-vim'
 Plug 'janko-m/vim-test'
-Plug 'keith/swift.vim'
-Plug 'kien/ctrlp.vim'
-Plug 'leafgarland/typescript-vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'moll/vim-node'
-Plug 'scrooloose/syntastic'
+Plug 'neomake/neomake'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
+Plug 'ervandew/supertab'
+Plug 'lambdalisue/suda.vim'
+Plug 'sbdchd/neoformat'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'machakann/vim-highlightedyank'
+Plug 'tmhedberg/SimpylFold'
+
 call plug#end()
 " }}}
 " airline {{{
 set laststatus=2
-let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'codedark'
 let g:airline_left_sep = ''
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
+let g:deoplete#enable_at_startup = 1
+" }}}
+" ultisnips {{{
+let g:UltiSnipsExpandTrigger='<c-/>'
+let g:UltiSnipsJumpForwardTrigger='<c-b>'
+let g:UltiSnipsJumpBackwardTrigger='<c-z>'
+" }}}
+" neomake {{{
+let g:neomake_python_enabled_makers = ['pylint']
+call neomake#configure#automake('nrwi', 500)
+
+let g:neomake_list_height = 4
+let g:neomake_open_list = 1
+let g:neomake_error_sign = {
+         \ 'text': '✖',
+         \ 'texthl': 'NeomakeErrorSign',
+         \ }
+     let g:neomake_warning_sign = {
+         \   'text': '‼',
+         \   'texthl': 'NeomakeWarningSign',
+         \ }
+     let g:neomake_message_sign = {
+          \   'text': '➤',
+          \   'texthl': 'NeomakeMessageSign',
+          \ }
+     let g:neomake_info_sign = {
+          \ 'text': 'ℹ',
+          \ 'texthl': 'NeomakeInfoSign'
+          \ }
+
+let g:neomake_highlight_lines = 1
+let g:airline#extensions#neomake#enabled = 1
+
+" }}}
+" Neoformat {{{
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
+
 " }}}
 " Custom Functions {{{
 function! <SID>ToggleNumber()
@@ -184,8 +223,8 @@ endfunc
 function! <SID>StripTrailingWhitespaces()
     " save last search & cursor position
     let _s=@/
-    let l = line(".")
-    let c = col(".")
+    let l = line('.')
+    let c = col('.')
     %s/\s\+$//e
     let @/=_s
     call cursor(l, c)
@@ -194,8 +233,8 @@ endfunc
 function! <SID>CleanFile()
     " Preparation: save last search, and cursor position.
     let _s=@/
-    let l = line(".")
-    let c = col(".")
+    let l = line('.')
+    let c = col('.')
     " Do the business:
     %!git stripspace
     " Clean up: restore previous search history, and cursor position
@@ -204,20 +243,17 @@ function! <SID>CleanFile()
 endfunc
 
 function! <SID>RunFile()
-    let ext = expand("%:e")
-    if(ext == "go")
+    let ext = expand('%:e')
+    if(ext == 'go')
         :GoRun
     endif
 endfunc
 
 function! <SID>BuildFile()
-    let ext = expand("%:e")
-    if(ext == "go")
+    let ext = expand('%:e')
+    if(ext == 'go')
         :GoBuild
     endif
 endfunc
 " }}}
-"
-
 " vim:foldmethod=marker:foldlevel=0
-
