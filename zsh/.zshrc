@@ -115,6 +115,7 @@ alias ..='cd ..'
 alias c='clear'
 alias vi='nvim'
 alias vim='nvim'
+alias pylint='pylint3'
 alias l.='ls -d .* --color=auto'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
