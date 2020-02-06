@@ -1,11 +1,12 @@
 " Douglas Black
-" Colors
-syntax enable           " enable syntax processing
+" Colors {{{
+" syntax enable           " enable syntax processing
 set background=dark
 colorscheme codedark
 set encoding=UTF-8
-"
-" Misc {{{
+" }}}
+runtime secret.vim
+" Milsc {{{
 set backspace=indent,eol,start
 set path+=**
 let g:vimwiki_list = [{'path': '~/.wiki/'}]
@@ -112,6 +113,7 @@ augroup configgroup
     autocmd BufEnter *.md setlocal ft=markdown
     autocmd BufEnter *.go setlocal noexpandtab
     autocmd BufEnter *.avsc setlocal ft=json
+    autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2 expandtab
 augroup END
 " }}}
 " {{{
@@ -142,6 +144,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'honza/vim-snippets'
+Plug 'easymotion/vim-easymotion'
 Plug 'romainl/vim-cool'
 Plug 'tpope/vim-repeat'
 Plug 'ryanoasis/vim-devicons'
@@ -162,12 +165,16 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-endwise'
 Plug 'lambdalisue/suda.vim'
+Plug 'shumphrey/fugitive-gitlab.vim'
 " Plug 'sbdchd/neoformat'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tmhedberg/SimpylFold'
 
 call plug#end()
+" }}}
+" fugitive lab{{{
+let g:fugitive_gitlab_domains = ['https://gitlab.com']
 " }}}
 " airline {{{
 set laststatus=2
@@ -189,9 +196,6 @@ nnoremap <Leader>ta :BTags<CR>
 nnoremap <Leader>Ta :Tags<CR>
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
-let g:ale_linters={'python': ['pylint']}
-let b:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],}
 let g:ale_python_executable='python3'
 let g:ale_python_pylint_use_global=1
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
@@ -204,7 +208,8 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-python',
-  \ 'coc-solargraph'
+  \ 'coc-solargraph',
+  \ 'coc-yaml',
   \]
 "}}}
 " neomake {{{
@@ -386,11 +391,11 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -402,7 +407,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
