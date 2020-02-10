@@ -48,7 +48,7 @@ nnoremap <space> za
 set foldlevelstart=10   " start with fold level of 1
 " }}}
 " Line Shortcuts {{{
-command W w !sudo tee "%" > /dev/null
+command! W w !sudo tee "%" > /dev/null
 command! T !ctags -R .
 nnoremap j gj
 nnoremap k gk
@@ -58,11 +58,12 @@ nnoremap gV `[v`]
 let mapleader=','
 " rainbow {{{
 nnoremap <f1> :echo synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
-" nnoremap <f2> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-" \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-" \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">")<cr>
-" nnoremap <f3> :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
+nnoremap <f5> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">")<cr>
+nnoremap <f3> :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
 nnoremap <f4> :exec 'syn list '.synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
+let g:rainbow_active = 1
 " }}}
 nmap <F2> <Plug>(coc-rename)
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
@@ -131,8 +132,8 @@ let test#python#runner = 'nose'
 " Vim Plug {{{
 call plug#begin()
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'SirVer/ultisnips'
 Plug 'luochen1990/rainbow'
+Plug 'turbio/bracey.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-commentary'
