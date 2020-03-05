@@ -5,7 +5,9 @@ set background=dark
 colorscheme codedark
 set encoding=UTF-8
 " }}}
-runtime secret.vim
+if !exists ('g:vscode')
+    runtime secret.vim
+endif
 " Milsc {{{
 set backspace=indent,eol,start
 set path+=**
@@ -57,6 +59,7 @@ nnoremap gV `[v`]
 " Leader Shortcuts {{{
 let mapleader=','
 " rainbow {{{
+if !exists ('g:vscode')
 nnoremap <f1> :echo synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
 nnoremap <f5> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -64,16 +67,20 @@ nnoremap <f5> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 nnoremap <f3> :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
 nnoremap <f4> :exec 'syn list '.synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
 let g:rainbow_active = 1
+endif
 " }}}
-nmap <F2> <Plug>(coc-rename)
+if !exists ('g:vscode')
+nmap <C-r> <Plug>(coc-rename)
+endif
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>l :call <SID>ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
 tnoremap <Esc> <C-\><C-n>
-nmap <F8> <Plug>(ale_lint)
+if !exists ('g:vscode')
 map <Leader>a :NERDTreeToggle<CR>
+endif
 map <Leader>n <esc>:tabprevious<CR>
 nnoremap <leader>vt :vsplit term://.//27361:/usr/bin/zsh<CR>
 inoremap <a-t> <esc>:vsplit term://.//27361:/usr/bin/zsh<CR>
@@ -120,7 +127,7 @@ augroup END
 " {{{
 nnoremap <silent> <leader>fz :call Fzf_dev()<CR>
 if executable('fzf')
-    nnoremap <C-p> :Files<CR>
+    nnoremap <A-p> :Files<CR>
     nnoremap <Leader>b :Buffers<CR>
     nnoremap <Leader>h :History<CR>
 endif
@@ -135,6 +142,7 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'luochen1990/rainbow'
 Plug 'turbio/bracey.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'vim-vdebug/vdebug'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -212,60 +220,6 @@ let g:coc_global_extensions = [
   \ 'coc-solargraph',
   \ 'coc-yaml',
   \]
-"}}}
-" neomake {{{
-" let g:neomake_python_pylint_maker = {
-"   \ 'args': [
-"   \ '-d', 'C0103, C0111',
-"   \ '-f', 'text',
-"   \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
-"   \ '-r', 'n'
-"   \ ],
-"   \ 'errorformat':
-"   \ '%A%f:%l:%c:%t: %m,' .
-"   \ '%A%f:%l: %m,' .
-"   \ '%A%f:(%l): %m,' .
-"   \ '%-Z%p^%.%#,' .
-"   \ '%-G%.%#',
-"   \ }
-
-" let g:neomake_python_enabled_makers = ['flake8', 'pylint3']
-
-" call neomake#configure#automake('nrwi', 500)
-
-" let g:neomake_list_height = 4
-" let g:neomake_open_list = 1
-" let g:neomake_error_sign = {
-"          \ 'text': '✖',
-"          \ 'texthl': 'NeomakeErrorSign',
-"          \ }
-"      let g:neomake_warning_sign = {
-"          \   'text': '‼',
-"          \   'texthl': 'NeomakeWarningSign',
-"          \ }
-"      let g:neomake_message_sign = {
-"           \   'text': '➤',
-"           \   'texthl': 'NeomakeMessageSign',
-"           \ }
-"      let g:neomake_info_sign = {
-"           \ 'text': 'ℹ',
-"           \ 'texthl': 'NeomakeInfoSign'
-"           \ }
-
-" let g:neomake_highlight_lines = 1
-" let g:airline#extensions#neomake#enabled = 1
-
-" }}}
-" Neoformat {{{
-" Enable alignment
-" let g:neoformat_basic_format_align = 1
-
-" " Enable tab to spaces conversion
-" let g:neoformat_basic_format_retab = 1
-
-" " Enable trimmming of trailing whitespace
-" let g:neoformat_basic_format_trim = 1
-" }}}
 " Custom Functions {{{
 function! <SID>ToggleNumber()
     if(&relativenumber == 1)
@@ -372,6 +326,7 @@ let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 " }}}
 " coc settings{{{
 " if hidden is not set, TextEdit might fail.
+if !exists ('g:vscode')
 set hidden
 
 " Some servers have issues with backup files, see #649
@@ -502,4 +457,5 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " }}}
+endif
 " vim:foldmethod=marker:foldlevel=0

@@ -1,0 +1,62 @@
+{
+    "yaml.schemas": {
+    "http://json.schemastore.org/gitlab-ci": "/.gitlab-ci.yml"
+},
+    "yaml.format.enable": true,
+    "yaml.validate": true,
+    "diagnostic.errorSign": "✖",
+    "diagnostic.warningSign": "⚠",
+    "diagnostic.infoSign": "ℹ",
+    "diagnostic.hintSign": "➤",
+    "suggest.noselect": false,
+    "suggest.echodocSupport": true,
+    "codeLens.enable": true,
+    "signature.enable": true,
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.preferences.importModuleSpecifier": "auto",
+    "tsserver.implicitProjectConfig.experimentalDecorators": true,
+    "html.suggest.angular1": false,
+    "html.suggest.ionic": false,
+    "html.suggest.html5": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"],
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "yapf",
+    "coc.preferences.formatOnSaveFiletypes": ["python", "ruby", "java"], 
+    "solargraph.completion": true,
+    "solargraph.commandPath":"/usr/local/bin/solargraph",
+    "solargraph.definitions": true,
+    "solargraph.folding": true,
+    "solargraph.formatting": true,
+    "solargraph.rename": true,
+    "ruby.lint": {
+        "rubocop": true,
+    },
+    "solargraph.autoformat": true,
+    "ruby.lintDebounceTime": 500,
+    "[ruby]": {
+        "editor.formatOnSave": true
+    },
+    "ruby.format": "rubocop",
+    "git.addedSign.text": "▎",
+    "git.changedSign.text": "▎",
+    "git.removedSign.text": "▎",
+    "git.changeRemovedSign.text": "▶",
+    "git.topRemovedSign.text": "◥",
+    "git.addedSign.hlGroup": "GitGutterAdd",
+    "git.changedSign.hlGroup": "GitGutterChange",
+    "git.removedSign.hlGroup": "GitGutterDelete",
+    "git.topRemovedSign.hlGroup": "GitGutterDelete",
+    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+    "explorer.file.columns": ["git","selection","diagnosticError","indent","icon","filename","size"],
+    "explorer.icon.enableNerdfont": true,
+    "explorer.width": 40,
+    "explorer.keyMappings": {
+       "<right>": "expand",
+       "<left>": "shrink"
+    },
+    "explorer.quitOnOpen": true
+}
+

@@ -1,6 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+kubectl () {
+    command kubectl $*
+    if [[ -z $KUBECTL_COMPLETE ]]
+    then
+        source <(command kubectl completion zsh)
+        KUBECTL_COMPLETE=1 
+    fi
+}
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/haman/.oh-my-zsh"
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden'
@@ -90,18 +99,7 @@ HIST_STAMPS="mm/dd/yyyy"
 DISABLE_LS_COLORS="true"
 
 # Plugins to load
-plugins=(
-    vi-mode
-    colorize
-    git
-    gitfast
-    tmux
-    virtualenv
-    zsh-autosuggestions
-    zsh-completions
-    zsh-history-substring-search
-    zsh-syntax-highlighting
-)
+plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting)
 
 setopt HIST_IGNORE_SPACE
 autoload -U compinit && compinit
