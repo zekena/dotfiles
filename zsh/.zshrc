@@ -99,7 +99,7 @@ HIST_STAMPS="mm/dd/yyyy"
 DISABLE_LS_COLORS="true"
 
 # Plugins to load
-plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting)
+plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search aws zsh-syntax-highlighting pip python django conda-zsh-completion)
 
 setopt HIST_IGNORE_SPACE
 autoload -U compinit && compinit
@@ -140,4 +140,20 @@ zle-line-init() {
 zle -N zle-line-init
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval export PATH="/home/haman/.rbenv/shims:${PATH}" export RBENV_SHELL=zsh source '/home/haman/.rbenv/libexec/../completions/rbenv.zsh' command rbenv rehash 2>/dev/null rbenv() { local command command="${1:-}" if [ "$#" -gt 0 ]; then shift fi case "$command" in rehash|shell) eval "$(rbenv "sh-$command" "$@")";; *) command rbenv "$command" "$@";; esac }
+autoload bashcompinit && bashcompinit
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/haman/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/haman/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/haman/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/haman/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

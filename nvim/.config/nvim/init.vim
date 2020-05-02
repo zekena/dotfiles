@@ -5,9 +5,7 @@ set background=dark
 colorscheme codedark
 set encoding=UTF-8
 " }}}
-if !exists ('g:vscode')
-    runtime secret.vim
-endif
+runtime secret.vim
 " Milsc {{{
 set backspace=indent,eol,start
 set path+=**
@@ -69,9 +67,6 @@ nnoremap <f4> :exec 'syn list '.synIDattr(synID(line('.'), col('.'), 0), 'name')
 let g:rainbow_active = 1
 endif
 " }}}
-if !exists ('g:vscode')
-nmap <C-r> <Plug>(coc-rename)
-endif
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -110,7 +105,6 @@ augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
     " autocmd VimEnter * colorscheme codedark
-    autocmd BufWritePre *.yaml,*.cs,*.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :ALEFix trim_whitespace 
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter Makefile setlocal noexpandtab
@@ -157,13 +151,11 @@ Plug 'easymotion/vim-easymotion'
 Plug 'romainl/vim-cool'
 Plug 'tpope/vim-repeat'
 Plug 'ryanoasis/vim-devicons'
-Plug 'davidhalter/jedi-vim'
 Plug 'janko-m/vim-test'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'moll/vim-node'
 Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
 " Plug 'neomake/neomake'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-abolish'
@@ -199,26 +191,21 @@ let g:airline_right_sep = ''
 let NERDTreeShowHidden=1  "  Always show dot files
 let NERDTreeQuitOnOpen=1
 map  <Leader>fn  :NERDTreeFind<CR>
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)  
 nnoremap <Leader>ta :BTags<CR>
 nnoremap <Leader>Ta :Tags<CR>
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-let g:ale_python_executable='python3'
-let g:ale_python_pylint_use_global=1
-let g:ale_python_pylint_options = '--load-plugins pylint_django'
 let g:coc_global_extensions = [
   \ 'coc-java',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-eslint', 
+  \ 'coc-html',
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-python',
   \ 'coc-solargraph',
   \ 'coc-yaml',
+  \ 'coc-go',  
   \]
 " Custom Functions {{{
 function! <SID>ToggleNumber()
