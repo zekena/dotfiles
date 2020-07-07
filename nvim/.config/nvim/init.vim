@@ -1,18 +1,17 @@
 " Douglas Black
-" Colors {{{
+" Colors 
 " syntax enable           " enable syntax processing
 set background=dark
-colorscheme codedark
 set encoding=UTF-8
-" }}}
+" 
 runtime secret.vim
-" Milsc {{{
+" Milsc 
 set backspace=indent,eol,start
 set path+=**
 let g:vimwiki_list = [{'path': '~/.wiki/'}]
 set clipboard=unnamed
-" }}}
-" Spaces & Tabs {{{
+" 
+" Spaces & Tabs 
 set tabstop=4           " 4 space tab
 set expandtab           " use spaces for tabs
 set softtabstop=4       " 4 space tab
@@ -21,8 +20,8 @@ set modelines=1
 filetype indent on
 filetype plugin on
 set autoindent
-" }}}
-" UI Layout {{{
+" 
+" UI Layout 
 set number              " show line numbers
 set showcmd             " show command in bottom bar
 set relativenumber      " relative number
@@ -32,31 +31,32 @@ set lazyredraw
 set showmatch           " higlight matching parenthesis
 set fillchars+=vert:┃
 set colorcolumn=80
+let g:gruvbox_italic=1
 highlight ColorColumn ctermbg=233
-" }}}
-" Searching {{{
+" 
+" Searching 
 set ignorecase          " ignore case when searching
 set incsearch           " search as characters are entered
 set hlsearch            " highlight all matches
-" }}}
-" Folding {{{
+" 
+" Folding 
 "=== folding ===
 set foldmethod=indent   " fold based on indent level
 set foldnestmax=10      " max 10 depth
 set foldenable          " don't fold files by default on open
 nnoremap <space> za
 set foldlevelstart=10   " start with fold level of 1
-" }}}
-" Line Shortcuts {{{
+" 
+" Line Shortcuts 
 command! W w !sudo tee "%" > /dev/null
 command! T !ctags -R .
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
-" }}}
-" Leader Shortcuts {{{
+" 
+" Leader Shortcuts 
 let mapleader=','
-" rainbow {{{
+" rainbow 
 if !exists ('g:vscode')
 nnoremap <f1> :echo synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
 nnoremap <f5> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -66,7 +66,7 @@ nnoremap <f3> :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")
 nnoremap <f4> :exec 'syn list '.synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
 let g:rainbow_active = 1
 endif
-" }}}
+" 
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -99,12 +99,13 @@ map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
 map ,t :tabe <C-R>=expand("%:p:h") . "/" <CR>
 map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
 map ,v :vs <C-R>=expand("%:p:h") . "/" <CR>
-" }}}
-" AutoGroups {{{
+" 
+" AutoGroups 
 augroup configgroup
     autocmd!
+    autocmd vimenter * colorscheme gruvbox
+    autocmd vimenter * AirlineTheme alduin
     autocmd VimEnter * highlight clear SignColumn
-    " autocmd VimEnter * colorscheme codedark
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter Makefile setlocal noexpandtab
@@ -117,22 +118,24 @@ augroup configgroup
     autocmd BufEnter *.avsc setlocal ft=json
     autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2 expandtab
 augroup END
-" }}}
-" {{{
+" 
+" 
 nnoremap <silent> <leader>fz :call Fzf_dev()<CR>
 if executable('fzf')
     nnoremap <A-p> :Files<CR>
     nnoremap <Leader>b :Buffers<CR>
     nnoremap <Leader>h :History<CR>
 endif
-" }}}
-" Testing {{{
+" 
+" Testing 
 let test#trategy = 'neovim'
 let test#python#runner = 'nose'
-" }}}
-" Vim Plug {{{
+" 
+" Vim Plug 
 call plug#begin()
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'morhetz/gruvbox'
 Plug 'luochen1990/rainbow'
 Plug 'turbio/bracey.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -173,27 +176,23 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'tmhedberg/SimpylFold'
 
 call plug#end()
-" }}}
-" fugitive lab{{{
+" 
+" fugitive lab
 let g:fugitive_gitlab_domains = ['https://gitlab.com']
-" }}}
-" airline {{{
+" 
+" airline 
 set laststatus=2
 let g:rainbow_active = 1
-let g:airline_theme = 'codedark'
-let g:airline_left_sep = ''
 let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
-" }}}
-" ultisnips {{{
+" 
+" ultisnips 
 let NERDTreeShowHidden=1  "  Always show dot files
 let NERDTreeQuitOnOpen=1
 map  <Leader>fn  :NERDTreeFind<CR>
 nnoremap <Leader>ta :BTags<CR>
 nnoremap <Leader>Ta :Tags<CR>
 let g:coc_global_extensions = [
+  \ 'coc-tabnine',
   \ 'coc-java',
   \ 'coc-snippets',
   \ 'coc-pairs',
@@ -207,7 +206,7 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
   \ 'coc-go',  
   \]
-" Custom Functions {{{
+" Custom Functions 
 function! <SID>ToggleNumber()
     if(&relativenumber == 1)
         set norelativenumber
@@ -310,8 +309,8 @@ function! Fzf_dev()
 endfunction
 
 let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
-" }}}
-" coc settings{{{
+" 
+" coc settings
 " if hidden is not set, TextEdit might fail.
 if !exists ('g:vscode')
 set hidden
@@ -443,6 +442,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" }}}
+" 
 endif
 " vim:foldmethod=marker:foldlevel=0
