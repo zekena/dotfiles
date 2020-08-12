@@ -4,12 +4,12 @@
 set background=dark
 set encoding=UTF-8
 " 
-runtime secret.vim
 " Milsc 
 set backspace=indent,eol,start
 set path+=**
 let g:vimwiki_list = [{'path': '~/.wiki/'}]
 set clipboard=unnamed
+set termguicolors
 " 
 " Spaces & Tabs 
 set tabstop=4           " 4 space tab
@@ -32,6 +32,7 @@ set showmatch           " higlight matching parenthesis
 set fillchars+=vert:┃
 set colorcolumn=80
 let g:gruvbox_italic=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight ColorColumn ctermbg=233
 " 
 " Searching 
@@ -48,7 +49,7 @@ nnoremap <space> za
 set foldlevelstart=10   " start with fold level of 1
 " 
 " Line Shortcuts 
-command! W w !sudo tee "%" > /dev/null
+com -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 command! T !ctags -R .
 nnoremap j gj
 nnoremap k gk
@@ -89,12 +90,13 @@ inoremap <a-k> <c-\><c-n><c-w>k
 inoremap <a-l> <c-\><c-n><c-w>l
 nnoremap <a-h> <c-w>h
 nnoremap <a-j> <c-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+nnoremap <a-k> <C-w>k
+nnoremap <a-l> <C-w>l
 map <Leader>m <esc>:tabnext<CR>
 map <Leader>tn <esc>:tabnew<CR>
 map <Leader>tc <esc>:tabclose<CR>
 map <Leader>to <esc>:tabonly<CR>
+nnoremap <C-p> <C-i><TAB>
 map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
 map ,t :tabe <C-R>=expand("%:p:h") . "/" <CR>
 map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
@@ -139,6 +141,7 @@ Plug 'morhetz/gruvbox'
 Plug 'luochen1990/rainbow'
 Plug 'turbio/bracey.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-vdebug/vdebug'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-commentary'
@@ -184,6 +187,7 @@ let g:fugitive_gitlab_domains = ['https://gitlab.com']
 set laststatus=2
 let g:rainbow_active = 1
 let g:airline_powerline_fonts = 1
+let g:ansible_extra_keywords_highlight = 1
 " 
 " ultisnips 
 let NERDTreeShowHidden=1  "  Always show dot files

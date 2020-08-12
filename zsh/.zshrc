@@ -11,7 +11,7 @@ kubectl () {
 }
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/haman/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden'
 
 # Fish syntax
@@ -96,25 +96,28 @@ ENABLE_CORRECTION="true"
 
 # Command execution time stamp shown in the history command output.
 HIST_STAMPS="mm/dd/yyyy"
-DISABLE_LS_COLORS="true"
 
 # Plugins to load
-plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search aws zsh-syntax-highlighting pip python django conda-zsh-completion)
+plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search aws zsh-syntax-highlighting pip python django iterm2 iterm-shell)
 
 setopt HIST_IGNORE_SPACE
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 # Example aliases
+macnst (){
+    netstat -Watnlv | grep LISTEN | awk '{"ps -o comm= -p " $9 | getline procname;colred="\033[01;31m";colclr="\033[0m"; print colred "proto: " colclr $1 colred " | addr.port: " colclr $4 colred " | pid: " colclr $9 colred " | name: " colclr procname;  }' | column -t -s "|"
+}
+alias ms="ssh zkenawi@martialshe.adca.sh"
 alias zshconfig="vi ~/.zshrc"
 alias zshapply="source ~/.zshrc"
-alias ls="ls --color=always"
 alias ..='cd ..'
 alias c='clear'
 alias vi='nvim'
 alias vim='nvim'
 alias pylint='pylint3'
-alias l.='ls -d .* --color=auto'
+alias ga="git add --all"
+alias gp="git push"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
@@ -139,21 +142,4 @@ zle-line-init() {
 }
 zle -N zle-line-init
 
-export PATH="$HOME/.rbenv/bin:$PATH"
 autoload bashcompinit && bashcompinit
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/haman/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/haman/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/haman/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/haman/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-

@@ -1,6 +1,9 @@
 {
     "yaml.format.enable": true,
     "yaml.validate": true,
+    "yaml.schemas": {
+        "https://json.schemastore.org/ansible-stable-2.4": "main.yaml"
+    },
     "diagnostic.errorSign": "✖",
     "diagnostic.warningSign": "⚠",
     "diagnostic.infoSign": "ℹ",
@@ -29,7 +32,7 @@
     "solargraph.formatting": true,
     "solargraph.rename": true,
     "ruby.lint": {
-        "rubocop": true,
+        "rubocop": true
     },
     "solargraph.autoformat": true,
     "ruby.lintDebounceTime": 500,
