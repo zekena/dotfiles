@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+export PATH=$PATH:/usr/local/go/bin:/opt/ghc/bin:/home/zekena/.ghcup/bin
+export GOPATH=/home/zekena/kube/go
 kubectl () {
     command kubectl $*
     if [[ -z $KUBECTL_COMPLETE ]]
@@ -98,7 +98,7 @@ ENABLE_CORRECTION="true"
 HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins to load
-plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search aws zsh-syntax-highlighting pip python django iterm2 iterm-shell)
+plugins=(vi-mode colorize git docker docker-compose kubectl gitfast tmux virtualenv zsh-autosuggestions zsh-completions zsh-history-substring-search aws zsh-syntax-highlighting pip python django)
 
 setopt HIST_IGNORE_SPACE
 autoload -U compinit && compinit

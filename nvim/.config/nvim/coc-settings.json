@@ -1,62 +1,105 @@
 {
-    "yaml.format.enable": true,
-    "yaml.validate": true,
-    "yaml.schemas": {
-        "https://json.schemastore.org/ansible-stable-2.4": "main.yaml"
+  "languageserver": {
+    "terraform": {
+          "command": "terraform-lsp",
+          "filetypes": [
+                  "terraform",
+                  "tf"
+                ],
+          "initializationOptions": {},
+          "settings": {}
     },
-    "diagnostic.errorSign": "✖",
-    "diagnostic.warningSign": "⚠",
-    "diagnostic.infoSign": "ℹ",
-    "diagnostic.hintSign": "➤",
-    "suggest.noselect": false,
-    "suggest.echodocSupport": true,
-    "codeLens.enable": true,
-    "signature.enable": true,
-    "suggest.preferCompleteThanJumpPlaceholder": true,
-    "typescript.preferences.quoteStyle": "single",
-    "typescript.preferences.importModuleSpecifier": "auto",
-    "tsserver.implicitProjectConfig.experimentalDecorators": true,
-    "eslint.autoFixOnSave": true,
-    "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-    "prettier.disableSuccessMessage": true,
-    "python.formatting.provider": "black",
-    "python.jediPath": "~/.local/lib/python3.6/site-packages",
-    "python.jediMemoryLimit": -1,
-    "coc.preferences.formatOnSaveFiletypes": ["javascript","javascriptreact","typescript","typescriptreact","python", "ruby"], 
-    "tsserver.formatOnType": true,
-    "coc.preferences.formatOnType": true,
-    "solargraph.completion": true,
-    "solargraph.commandPath":"/usr/local/bin/solargraph",
-    "solargraph.definitions": true,
-    "solargraph.folding": true,
-    "solargraph.formatting": true,
-    "solargraph.rename": true,
-    "ruby.lint": {
-        "rubocop": true
-    },
-    "solargraph.autoformat": true,
-    "ruby.lintDebounceTime": 500,
-    "[ruby]": {
-        "editor.formatOnSave": true
-    },
-    "ruby.format": "rubocop",
-    "git.addedSign.text": "▎",
-    "git.changedSign.text": "▎",
-    "git.removedSign.text": "▎",
-    "git.changeRemovedSign.text": "▶",
-    "git.topRemovedSign.text": "◥",
-    "git.addedSign.hlGroup": "GitGutterAdd",
-    "git.changedSign.hlGroup": "GitGutterChange",
-    "git.removedSign.hlGroup": "GitGutterDelete",
-    "git.topRemovedSign.hlGroup": "GitGutterDelete",
-    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-    "explorer.file.columns": ["git","selection","diagnosticError","indent","icon","filename","size"],
-    "explorer.icon.enableNerdfont": true,
-    "explorer.width": 40,
-    "explorer.keyMappings": {
-       "<right>": "expand",
-       "<left>": "shrink"
-    },
-    "explorer.quitOnOpen": true
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell"]
+    }
+  },
+  "yaml.format.enable": true,
+  "yaml.validate": true,
+  "yaml.schemas": {
+    "https://json.schemastore.org/ansible-role-2.9": "main.yaml",
+    "Kubernetes": ["/deployment-*.yaml", "/kub-*.yaml"]
+  },
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "suggest.noselect": false,
+  "suggest.echodocSupport": true,
+  "codeLens.enable": true,
+  "signature.enable": true,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "auto",
+  "tsserver.implicitProjectConfig.experimentalDecorators": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.disableSuccessMessage": true,
+  "python.formatting.provider": "black",
+  "python.jediPath": "~/.local/lib/python3.6/site-packages",
+  "python.jediMemoryLimit": -1,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "python",
+    "ruby"
+  ],
+  "tsserver.formatOnType": true,
+  "coc.preferences.formatOnType": true,
+  "solargraph.completion": true,
+  "solargraph.commandPath": "/usr/local/bin/solargraph",
+  "solargraph.definitions": true,
+  "solargraph.folding": true,
+  "solargraph.formatting": true,
+  "solargraph.rename": true,
+  "ruby.lint": {
+    "rubocop": true
+  },
+  "solargraph.autoformat": true,
+  "ruby.lintDebounceTime": 500,
+  "[ruby]": {
+    "editor.formatOnSave": true
+  },
+  "ruby.format": "rubocop",
+  "git.addedSign.text": "▎",
+  "git.changedSign.text": "▎",
+  "git.removedSign.text": "▎",
+  "git.changeRemovedSign.text": "▶",
+  "git.topRemovedSign.text": "◥",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "explorer.file.columns": [
+    "git",
+    "selection",
+    "diagnosticError",
+    "indent",
+    "icon",
+    "filename",
+    "size"
+  ],
+  "explorer.icon.enableNerdfont": true,
+  "explorer.width": 40,
+  "explorer.keyMappings": {
+    "<right>": "expand",
+    "<left>": "shrink"
+  },
+  "explorer.quitOnOpen": true
 }
-

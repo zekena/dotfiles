@@ -135,12 +135,10 @@ let test#python#runner = 'nose'
 " 
 " Vim Plug 
 call plug#begin()
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'morhetz/gruvbox'
 Plug 'luochen1990/rainbow'
 Plug 'turbio/bracey.vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-vdebug/vdebug'
 Plug 'tomasiser/vim-code-dark'
